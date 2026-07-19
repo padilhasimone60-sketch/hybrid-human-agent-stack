@@ -1,381 +1,327 @@
 # Winnex Hybrid Human-Agent Stack
-## Especificacao Pre-Patente do Sistema de Validacao Humana (RH) na Arquitetura Winnex Maestro
+## Especificacao Pre-Patente do Sistema de Validacao Humana (RH) na Arquitetura Winnex Maestro — Orquestracao Multi-Agente com Garantias Matematicas e Marketplace de Trabalho Hibrido
 
 **Pre-Patent Technical Specification -- Zenodo Submission**
 
-**DOI:** 10.5281/zenodo.TBD  
-**License:** Business Source License 1.1 (BSL 1.1)  
-**Author:** Simone Conceicao Rocha -- Mestre em Recursos Humanos  
-**Co-Author:** Klenio Araujo Padilha  
-**Organization:** Winnex Brasil Solucoes Empresariais LTDA - ME  
-**CNPJ:** 58.364.637/0001-47 | Brazil  
-**Contact:** pay@winnex.ai  
-**Status:** Pre-Patent Publication -- Technical Specification v1.0  
-**Repositorio:** github.com/padilhasimone60-sketch/hybrid-human-agent-stack  
-**Stack Winnex:** Zenodo records 10.5281/zenodo.20970487 (Madhava), 10.5281/zenodo.21292595 (RAI), 10.5281/zenodo.21107295 (Enterprise), 10.5281/zenodo.19630736 (Inference Stack)
+**DOI:** 10.5281/zenodo.TBD
+**License:** Business Source License 1.1 (BSL 1.1)
+**Author:** Simone Conceicao Rocha -- Mestre em Recursos Humanos
+**Co-Author:** Klenio Araujo Padilha
+**Organization:** Winnex Brasil Solucoes Empresariais LTDA - ME
+**CNPJ:** 58.364.637/0001-47 | Brazil
+**Contact:** pay@winnex.ai
+**Repositorio:** github.com/padilhasimone60-sketch/hybrid-human-agent-stack
+**Stack de Referencia:** Zenodo records 10.5281/zenodo.20970487 (Madhava Cascade), 10.5281/zenodo.21292595 (RAI Architecture), 10.5281/zenodo.21107295 (Enterprise Stack), 10.5281/zenodo.19630736 (Winnex AI Inference Stack)
 
 ---
 
 ## 1. Introducao: O Problema da Validacao Humana em Sistemas Multi-Agente
 
-### 1.1 Contexto
+### 1.1 Contexto Academico
 
-Este trabalho investiga como profissionais humanos podem ser integrados de forma sistematica, auditavel e escalavel em arquiteturas de multiagentes de inteligencia artificial para processos empresariais regulados. A pergunta central: como projetar um sistema onde agentes de IA executam tarefas cognitivas em escala, enquanto profissionais humanos retem a autoridade final de validacao, com garantias de auditabilidade e nao-repudio?
+Este trabalho investiga como profissionais humanos podem ser integrados de forma sistematica, auditavel e escalavel em arquiteturas de multiagentes de inteligencia artificial para processos empresariais regulados. A pergunta central: como projetar um sistema onde agentes de IA executam tarefas cognitivas em escala, enquanto profissionais humanos retem a autoridade final de validacao -- com garantias de auditabilidade, rastreabilidade e nao-repudio?
 
 ### 1.2 O Gap Tecnologico-Organizacional
 
-Sistemas de IA atuais tratam a intervencao humana como excecao. Tres problemas fundamentais:
+Sistemas de IA atuais (LangChain, AutoGPT, CrewAI) tratam a intervencao humana como excecao. Tres problemas fundamentais:
 
 **1. Assincronia estrutural.** Nao ha garantia de que o profissional certo sera encontrado no tempo certo. A tarefa de validacao humana e um buraco negro no fluxo automatizado.
 
 **2. Assimetria de rastreabilidade.** Decisoes humanas nao sao registradas com o mesmo rigor que decisoes de IA. Nao ha assinatura digital, hash chain ou nao-repudio.
 
-**3. Inexistencia de mercado.** Nao ha mecanismo formal para profissionais se oferecerem como validadores, serem descobertos por demanda e remunerados por especialidade.
+**3. Inexistencia de mercado formal.** Nao ha mecanismo para profissionais se oferecerem como validadores, serem descobertos por demanda e remunerados por especialidade.
 
-### 1.3 A Proposta
+### 1.3 A Arquitetura Winnex Maestro
 
-Este documento descreve a camada de validacao humana (RH) na arquitetura Winnex Maestro, construida sobre quatro inovacoes:
+O Winnex Maestro e um orquestrador JSON-driven com 19 modulos e mais de 96.000 linhas de codigo Python. Ele integra quatro sistemas que enderecam estes tres problemas:
 
-1. **RH Registry** -- Profissionais registrados com perfil formal de competencias, disponibilidade e custo
-2. **Pipeline de 4 Camadas** -- Sandbox, checklist, aprovacao humana e revisao hierarquica
-3. **Strategy Room** -- Colaboracao facilitador-mediada entre IA e humanos com auditoria criptografica
-4. **Marketplace Hibrido** -- Catalogo unificado de agentes IA e servicos humanos
+1. **O modulo maestro** -- Orquestra RAIs (Running Agent Instances), RHs (Recursos Humanos), WorkRAIs (tarefas atomicas), Cronologias (processos multi-passo), Strategy Rooms (salas de colaboracao) e Marketplace (catalogo de agentes)
+2. **O motor matematico Madhava** -- Busca vetorial com garantia Cauchy-Schwarz, zero violacoes em 254M+ pares, deterministica e auditavel
+3. **O motor de IA** -- 7 provedores com auto-failover wireguard, local, deepseek, zai, openai, anthropic, google
+4. **O motor JSON-driven** -- Banco de dados flutuante, rotas dinamicas, permissoes RBAC, hot-reload de entidades sem restart
 
-Todas as operacoes sao garantidas pelo Madhava Cascade (0 violacoes em 254M+ pares) e orquestradas pelo Winnex Maestro (19 modulos, JSON-driven).
+Este documento foca na **camada de interacao com profissionais humanos** (RHs) orquestrada pelo modulo maestro.
 
 ---
 
-## 2. A Taxonomia de Agentes: 10 Niveis de Autonomia na Winnex Maestro
+## 2. A Taxonomia de Agentes: 10 Niveis de Autonomia
 
-A Winnex Maestro define uma taxonomia formal de 10 niveis de autonomia. Esta secao descreve a taxonomia real implementada no Winnex Maestro (Zenodo 10.5281/zenodo.21292595).
+O Winnex Maestro define 10 niveis de autonomia. Esta taxonomia e o alicerce sobre o qual o sistema de validacao humana se constroi. Nenhum agente opera alem de seu envelope de autoridade sem override documentado de nivel superior.
 
-### 2.1 A Tabela de Niveis
-
-| Nivel | Tipo | Autonomia | Credenciais | Override |
-|:-----:|------|:---------:|-------------|:--------:|
-| **0** | DireX/Winconnex (Roteador) | Roteamento | root + master_key | Nenhum (apenas roteia) |
-| **1** | RAI Assistencial | Supervisionada | api_key | Level 2+ ou RH |
-| **2** | RAI Especialista | Supervisionada | api_key + tenant_id | Level 7+ ou RH |
-| **3** | Claw Agent | Confinada | service_token + secret | Level 7+ |
-| **4** | Claw Avancado | Escopada | + tenant_access | Level 7+ |
-| **5** | Claw Confiavel | Extensiva | orchestration_token | Level 7+ |
-| **6** | Claw Sistema | Ampla | + master_key | Level 7+ |
-| **7** | Agente Estrategico | Consultiva | system_credential + internal_token | Recomenda (advisory) |
+| Nivel | Tipo | Autonomia | Credenciais | Pode Overridear |
+|:-----:|------|:---------:|-------------|:--------------:|
+| **0** | DireX/Winconnex (Roteador) | Roteamento deliberativo | root + master_key | Nenhum -- apenas roteia |
+| **1** | RAI Assistencial | Supervisionada | api_key | Nenhum |
+| **2** | RAI Especialista | Supervisionada | api_key + tenant_id | Nenhum |
+| **3** | Claw Agent | Confinada | service_token + secret | Nenhum |
+| **4** | Claw Avancado | Escopada | + tenant_access | Nenhum |
+| **5** | Claw Confiavel | Extensiva | orchestration_token | Nenhum |
+| **6** | Claw Sistema | Ampla | + master_key | Nenhum |
+| **7** | Agente Estrategico | Consultiva (advisory) | system_credential + internal_token | Recomenda apenas |
 | **8** | RH Especialista Humano | Validadora | admin_credential + agent_control_key | Overrideia IA Levels 1-7 |
-| **9** | RH Executivo Humano | Aprovadora | root_credential + master_key | Autoridade final |
+| **9** | RH Executivo Humano | Aprovadora | root_credential + master_key | Autoridade final sobre todos |
 
-### 2.2 Esclarecimentos sobre a Taxonomia
+### 2.1 Esclarecimentos sobre Niveis e Papeis
 
-**DireX/Winconnex (Level 0):** Diferente do que uma leitura superficial pode sugerir, DireX nao possui acesso total ao sistema. DireX e um **agente de roteamento deliberativo**: sua funcao e receber requisicoes e decidir para qual agente (RAI, Claw, humano) encaminhar. Ele nao executa tarefas, nao acessa dados, nao toma decisoes de negocio. Seu papel e exclusivamente de roteamento.
+**DireX/Winconnex (Level 0):** Agente de roteamento deliberativo. Sua funcao exclusiva e receber requisicoes e decidir para qual agente (RAI, Claw, humano) encaminhar. Nao executa tarefas, nao acessa dados de negocio, nao toma decisoes. Todo override de DireX e registrado com assinatura Ed25519.
 
-**Claw Agents (Levels 3-6):** A nomenclatura correta e Claw Agent, Claw Avancado, Claw Confiavel e Claw Sistema (nao PicoClaw). Sao agentes de IA com autonomia crescente, desde confinada (apenas uma tarefa especifica) ate ampla (multiplos dominios).
+**Claw Agents (Levels 3-6):** Agentes de IA com autonomia crescente -- Claw Agent (confinado a uma tarefa), Claw Avancado (escopado por dominio), Claw Confiavel (extensivo, multiplos dominios), Claw Sistema (amplo, acesso a coordenacao).
 
-**RAIs (Levels 1-2):** Recursos de Automacao Inteligente. Sao agentes de dominio de negocio que operam sob supervisao. Exemplos: Ana Fiscal (tributos), Carlos Implantacao (onboarding), Roberto Vendas (CRM).
+**RAIs (Levels 1-2):** Recursos de Automacao Inteligente. Agentes de dominio de negocio. Executam workflows com supervisao. Exemplos reais no sistema: Ana Fiscal (tributos), Carlos Implantacao (onboarding), Roberto Vendas (CRM), Beatriz Financeiro, Mariana Marketing.
 
-### 2.3 O Principio da Autonomia Limitada
-
-Cada nivel de agente tem um envelope de autoridade que nao pode ser excedido sem override documentado de um nivel superior. Esto garante que:
-
-- Agentes de IA (Levels 1-7) operam dentro de limites bem definidos
-- Nenhuma decisao critica e tomada sem supervisao humana (Levels 8-9)
-- Eventos de override sao registrados com assinatura Ed25519 e justificativa obrigatoria
-- A auditoria pode rastrear qualquer decisao ate o agente (IA ou humano) que a tomou
-
-### 2.4 Agentes IA vs. Agentes Humanos: Tratamento Simetrico
+### 2.2 Tratamento Simetrico entre IA e Humanos
 
 | Aspecto | Agente IA (Levels 1-7) | Agente Humano RH (Levels 8-9) |
 |---------|----------------------|------------------------------|
-| Registro | Perfil + workflow_definition | Perfil + certificacoes + disponibilidade |
-| Descoberta | Marketplace catalog | Match por especialidade |
-| Execucao | ai_prompt / data_processing | human_validation |
-| Auditoria | Tokens + bound proof Madhava | Justificativa + assinatura Ed25519 |
-| Nao-repudio | Garantia matematica | Assinatura digital |
-| Override | Nao possui | Pode overridear IA |
+| Registro | Perfil + workflow_definition (entidade agents_initial) | Perfil + especialidade + rating (entidade maestro_rhs) |
+| Descoberta | Catalogo do Marketplace | Query by_specialty + list_available |
+| Execucao | ai_prompt / data_processing / api_call | human_validation |
+| Auditoria | Tokens + bound proof Madhava + hash chain | Justificativa + assinatura + hash chain |
+| Metricas | Latencia, acuracia, tokens | Rating, taxa aprovacao, tempo medio, carga |
+| Override | Nao possui | Pode overridear IA Levels 1-7 |
 
 ---
 
-## 3. O Registro de Agentes Humanos: RH Registry
+## 3. O Registro de Agentes Humanos: Entidade maestro_rhs
 
-O RH Registry e a inovacao central deste trabalho sob a otica da gestao de pessoas. Profissionais humanos sao tratados como agentes de primeira classe no sistema, com o mesmo nivel de formalismo, rastreabilidade e auditabilidade que os agentes de IA.
+No Winnex Maestro, profissionais humanos sao modelados como entidades JSON e armazenados na tabela `maestro_rhs`. Cada registro de RH contem:
 
-### 3.1 Estrutura do Perfil do Profissional
+| Campo | Tipo | Descricao |
+|-------|------|-----------|
+| id | integer (PK) | Identificador unico |
+| nome | string (255) | Nome completo |
+| email | string (255) | Email de contato |
+| especialidade | enum | Fiscal, Comercial, Financeiro, RH, TI, Juridico, Operacional, Geral |
+| nivel_experiencia | enum | Junior, Pleno, Senior, Especialista, Lider |
+| disponivel | boolean | Disponivel para novas validacoes |
+| rating | decimal(3,2) | Avaliacao media (0-5) |
+| total_validacoes | integer | Total de validacoes realizadas |
+| validacoes_aprovadas | integer | Aprovadas |
+| validacoes_rejeitadas | integer | Rejeitadas |
+| tempo_medio_validacao_minutos | integer | Tempo medio por validacao |
+| carga_atual | integer | Validacoes pendentes no momento |
+| capacidade_maxima | integer | Maximo de validacoes simultaneas |
+| user_id | integer (FK) | Usuario do sistema associado |
+| tenant_id | integer (FK) | Tenant (multi-tenancy) |
 
-| Campo | Descricao | Exemplo |
-|-------|-----------|---------|
-| specialty | Dominio de especializacao | fiscal, legal, financial, medical, compliance |
-| subspecialty | Subarea | lucro_presumido, direito_tributario, auditoria |
-| experience_level | Nivel de experiencia | junior, senior, principal, executive |
-| certifications | Certificacoes | OAB, CRC, CPA-20, ICP-Brasil, CFA |
-| availability | Escala de disponibilidade | seg-sex 9-18, 20h/semana |
-| max_workload | Capacidade maxima simultanea | 5 tarefas |
-| hourly_cost | Custo horario | R$ 200/hora |
-| rating | Avaliacao media | 4.8/5.0 (127 tarefas) |
-| languages | Idiomas | pt-BR, en-US |
-| jurisdiction | Jurisdicao de atuacao | Brasil-OAB/SP, UK-SRA |
+O sistema inclui dados default para demonstracao: Carlos Silva (Fiscal, Senior, rating 4.85, 127 validacoes), Maria Santos (Comercial, Especialista, rating 4.92, 203 validacoes), Jose Oliveira (Financeiro, Pleno), Ana Paula Costa (TI, Lider, rating 4.95, 312 validacoes).
 
-### 3.2 Regimes de Contratacao no Marketplace
+### 3.1 Consultas de Descoberta no Sistema
 
-**Regime 1: Profissional Autonomo**
-Cadastra-se diretamente na plataforma. Define precos e disponibilidade. Contratado por tarefa ou hora. Ideal para consultores, advogados autonomos, contadores, peritos.
+O Winnex Maestro implementa a descoberta de RHs por meio de queries SQL definidas no JSON da entidade. As principais:
 
-**Regime 2: Empresa Prestadora de Servicos**
-Escritorio de advocacia, consultoria ou BPO cadastra equipe no Marketplace. A empresa define quais profissionais estao disponiveis para quais clientes. Clientes contratam a empresa, que distribui as tarefas internamente.
+**list_available:** `SELECT id, nome, especialidade, nivel_experiencia, disponivel, rating, carga_atual, capacidade_maxima FROM maestro_rhs WHERE disponivel = true AND carga_atual < capacidade_maxima AND tenant_id = :tenant_id ORDER BY rating DESC, carga_atual ASC`
 
-**Regime 3: Profissional Corporativo**
-Profissional contratado por empresa que usa a Winnex internamente. O RH corporativo define quais empregados atuam como validadores em quais processos.
+**by_specialty:** Busca os 10 melhores RHs por especialidade, ordenados por rating. Ex: buscar todos os especialistas fiscais disponiveis para uma tarefa de validacao tributaria.
 
-### 3.3 Descoberta Automatica e Roteamento
+**get_stats:** Retorna estatisticas de performance: taxa de aprovacao (aprovadas/total * 100), tempo medio de validacao, rankings por rating e produtividade.
 
-O CronologiaOrchestrator (daemon background, polling a cada 10s) descobre automaticamente o profissional mais adequado para cada tarefa. Cinco criterios ponderados:
+### 3.2 Atribuicao e Ciclo de Carga
 
-1. Correspondencia de especialidade (peso maior)
-2. Disponibilidade imediata (nao no limite de carga)
-3. Custo dentro do orcamento do tenant
-4. Qualificacoes exigidas (certificacoes vigentes)
-5. Reputacao e historico (rating e taxa de conclusao)
+Quando uma validacao e atribuida a um RH (`assign_validation`), o sistema: (1) verifica se o RH esta disponivel, (2) verifica se a carga atual nao excedeu a capacidade maxima, (3) incrementa a carga atual. Quando a validacao e concluida (`complete_validation`), o sistema: (1) decrementa a carga, (2) atualiza totais de aprovadas/rejeitadas, (3) recalcula o rating com base na taxa de aprovacao, (4) atualiza o tempo medio (media movel).
 
-A atribuicao pode ser automatica (tarefas padrao) ou manual (contratante seleciona profissional especifico).
+Regras de rating: 100% aprovacao = 5.0, 90%+ = 5.0, 80%+ = 4.5, 70%+ = 4.0, 60%+ = 3.5, abaixo = 3.0.
+
+### 3.3 Regimes de Contratacao
+
+O Marketplace da Winnex suporta tres regimes:
+
+**1. Profissional Autonomo:** Cadastra-se diretamente, define precos e disponibilidade. Contratado por tarefa ou hora. Ideal para consultores, advogados, contadores, peritos.
+
+**2. Empresa Prestadora:** Escritorio de advocacia, consultoria ou BPO cadastra equipe no Marketplace. Clientes contratam a empresa, que distribui tarefas internamente.
+
+**3. Profissional Corporativo:** Contratado por empresa que usa a Winnex internamente. RH corporativo define quem valida quais processos.
 
 ---
 
-## 4. O WorkRAI e o Pipeline de Validacao Humana em 4 Camadas
+## 4. O Sistema de Validacao em 4 Camadas
 
-### 4.1 Tipos de Trabalho
+### 4.1 A Entidade WorkRAI (maestro_workrai)
 
-| Tipo | Executor | Auditoria |
-|------|----------|-----------|
-| ai_prompt | Agente IA | Tokens + bound proof Madhava |
-| human_validation | Profissional RH | Assinatura Ed25519 + justificativa |
-| api_call | Sistema | Metadados + timing |
-| data_processing | Agente IA | Hash input/output |
-| enviar_email | Sistema | Log de entrega |
+A tabela `maestro_workrai` armazena tarefas atomicas. Cada WorkRAI tem um tipo que determina seu executor:
 
-### 4.2 Pipeline de 4 Camadas
+| Tipo | Executor | Fluxo | Auditoria |
+|------|----------|-------|-----------|
+| ai_prompt | Agente IA (SGLang via AIIntegrationService) | Prompt -> resposta do LLM | Tokens + bound proof Madhava |
+| human_validation | Profissional RH (Level 8-9) | RH revisa e aprova/rejeita | Assinatura Ed25519 + justificativa |
+| api_call | Sistema (httpx) | Chamada a API externa | Metadados + timing |
+| data_processing | Agente IA | Transformacao de dados | Hash input/output |
+| enviar_email | Sistema | Notificacao | Log de entrega |
 
-**Layer 1: Sandbox (Automatico)**
-- Execucao isolada do agente IA com coleta de metricas
-- Deteccao de anomalias: error rate acima de 5%, latency acima de 2s, CPU acima de 90%, confidence abaixo de 0.6
-- Se anomalia: rollback automatico antes de envolver o humano
+Status disponiveis: pending, pending_rh, awaiting_dev, in_progress, running, completed, failed, waiting_validation. Cada WorkRAI pertence a uma instancia RAI e a uma Cronologia.
 
-**Layer 2: Checklist (Automatico)**
-- Validacoes tecnicas obrigatorias (schema, bound violations, hash chain)
-- Relatorio de pre-validacao para o profissional
+### 4.2 O ValidationManager: 4 Camadas Sequenciais
 
-**Layer 3: RH Validation (Humano)**
-- Profissional recebe: resultado do agente + relatorio das Layers 1-2
-- Opcoes: APROVAR, REJEITAR com justificativa, ou SOLICITAR REVISAO
-- Timeout padrao: 4h. Apos timeout: escalacao automatica
+O servico `ValidationManager` (543 linhas) implementa a validacao em 4 camadas. Cada camada e executada sequencialmente -- se uma falha, as seguintes nao sao executadas:
 
-**Layer 4: Partner Validation (Humano, apenas tarefas criticas)**
-- Exigido para: alto impacto financeiro, filing regulatorio, acesso cross-tenant
+**Camada 1: Sandbox (Automatica)**
+- Verifica metricas de execucao do agente IA: error rate, latency, CPU, memoria
+- Anomalias detectadas impedem a tarefa de chegar ao humano
+- Se falhar: status = failed, failed_layer = sandbox, rollback automatico
+
+**Camada 2: Checklist (Automatica)**
+- Validacoes tecnicas obrigatorias: conformidade de schema, integridade de dados
+- Gera relatorio de pre-validacao para o profissional humano
+- Se falhar: status = failed, rollback automatico
+
+**Camada 3: RH Validation (Humano)**
+- Profissional designado recebe a tarefa com contexto completo
+- Pode: APROVAR, REJEITAR com justificativa, ou SOLICITAR REVISAO
+- Timeout: 2 horas (configuravel). Apos timeout: aprovacao automatica com warning
+- Se rejeitado: nova iteracao do WorkRAI com parametros ajustados
+
+**Camada 4: Partner Validation (Humano, apenas tarefas criticas)**
+- Exigido para tarefas critical, alto impacto financeiro, filing regulatorio
 - Executado por profissional de nivel hierarquico superior
+- Decisao final e vinculante, registrada com assinatura Ed25519
 
-### 4.3 Ciclo de Vida da Tarefa de Validacao Humana
+O status geral da validacao e: pending, in_progress, passed, failed, timeout, skipped.
 
-1. Agente IA completa execucao e produz resultado
-2. Sistema cria WorkRAI type=human_validation, status=pending_rh
-3. CronologiaOrchestrator identifica profissional (match por especialidade, disponibilidade, custo)
-4. Profissional notificado (in-app + email + Telegram)
-5. Profissional acessa: resultado do agente + contexto + relatorio de pre-validacao
-6. Profissional decide: aprovar, rejeitar ou solicitar revisao
-7. Se rejeitado: WorkRAI iterado com correcoes
-8. Se aprovado: registro commitado na cadeia SHA3-256 com assinatura Ed25519
-9. Profissional remunerado conforme regime contratual
-10. Rating do profissional atualizado
+### 4.3 Auto-Rollback System
 
-### 4.4 Protecao do Profissional: Auto-Rollback
+O servico `AutoRollbackSystem` (543 linhas) monitora metricas em tempo real com intervalo de deteccao de 5 segundos e executao rollback em menos de 30 segundos:
 
-O sistema impede que tarefas mal-formadas cheguem ao profissional:
-- Se confidence do agente abaixo de 0.6: tarefa reexecutada
-- Se anomalia tecnica (latency, error rate): tarefa nunca chega ao profissional
-- Se bound violation Madhava: sistema trava e aciona auditoria
-- Profissional pode reportar tarefa mal-formada sem penalidade
+Triggers configuraveis:
+- error_rate maior que 5% (severidade HIGH, rollback automatico)
+- error_rate maior que 10% (severidade CRITICAL, rollback + escalacao)
+- response_time maior que 2 segundos
+- cpu_usage maior que 90%
+- memory_usage maior que 95%
+- failed_validation (qualquer camada)
+- custom triggers via JSON
 
----
+### 4.4 Orquestradores
 
-## 5. A Strategy Room: Protocolo de Colaboracao Humano-IA
+O **CronologiaOrchestrator** (538 linhas) gerencia o ciclo de vida dos processos: polling a cada 30 segundos, executao etapas automaticas via AIIntegrationService, notificacao de RHs para etapas humanas, transicoes de estado (cronologia: planejamento -> iniciada -> em_andamento -> aguardando_rh -> concluida).
 
-### 5.1 Estrutura do Protocolo (5 Fases)
-
-**Fase 1: Context Assembly**
-Facilitador (DireX/Winconnex, Level 0) carrega contexto completo: historico de WorkRAIs, buscas Madhava com bound proofs, decisoes anteriores. Hash commitado na cadeia SHA3-256.
-
-**Fase 2: Analysis Round**
-Cada agente especialista apresenta analise com achados, scores e fontes citadas. Profissionais humanos podem fornecer expertise de dominio.
-
-**Fase 3: Deliberation**
-Facilitador identifica pontos de concordancia e divergencia. Agentes podem solicitar mais contexto. Profissionais questionam analises dos agentes. Votacao registrada.
-
-**Fase 4: Decision**
-Facilitador sintetiza tres opcoes (recomendada, alternativa, fallback). Profissional humano aprova ou solicita revisao.
-
-**Fase 5: Commitment**
-Decisao com audit trail completo. WorkRAIs gerados. Participantes assinam Ed25519. Registro na cadeia imutavel.
-
-### 5.2 Propriedades Formais
-
-| Propriedade | Significado | Mecanismo |
-|-------------|-------------|-----------|
-| Completude | Todos devem se manifestar. Silencio = abstencao | Log por participante |
-| Nao-repudio | Profissional nao nega decisao posteriormente | Assinatura Ed25519 |
-| Dissidencia | Discordancia formal com justificativa | Campo obrigatorio + assinatura |
-| Escalacao | Se sem decisao no prazo, escala automaticamente | Timeout + notificacao superior |
-| Contexto total | Profissional ve todas as informacoes dos agentes | Hash chain de contexto |
-
-### 5.3 Regras de Escalacao
-
-Escalacao automatica para nivel superior quando:
-- Sem consenso apos 3 rodadas
-- Confianca media abaixo de 0.7
-- Risco regulatorio acima do threshold
-- Dissidencia formal com justificativa
-- Impacto financeiro acima do limite (ex: R$ 50.000)
-- Timeout de 4h sem manifestacao do profissional
+O **WorkRAIOrchestrator** (557 linhas) processa WorkRAIs pendentes: polling a cada 5 segundos, busca tarefas pending e awaiting_dev, executa conforme tipo, atualiza status para running -> completed ou failed, dispara proxima etapa na cronologia.
 
 ---
 
-## 6. O Marketplace Hibrido: Trabalho na Economia IA-Humano
+## 5. A Strategy Room: Sala de Colaboracao Multi-Agente
 
-### 6.1 Tipos de Produto
+A entidade `strategy_room` e o componente de colaboracao persistente. Ela e criada automaticamente pelo `marketplace_install_processor` quando um agente e instalado, e gerenciada pelo `strategy_room_processor`.
 
-| Tipo | Descricao | Exemplo |
-|------|-----------|---------|
-| Agente de IA | RAI pre-configurado com workflow | Ana Fiscal para NF-e |
-| Servico Humano | Profissional para validacao | Consultor Tributario Senior |
-| Pacote Hibrido | Agente IA + profissional RH | Due Diligence Fiscal |
-| Workflow Completo | Cronologia pre-definida | Fechamento Contabil Mensal |
+Entidades relacionadas: strategy_room (sala), strategy_room_messages (mensagens), strategy_room_participants (participantes).
 
-### 6.2 Exemplo: Escritorio de Advocacia
+### 5.1 Protocolo de 5 Fases
 
-**Passo 1 -- Contratacao de Agente IA:** Escritorio adquire pacote Due Diligence Tributaria no Marketplace. Dois agentes IA pre-configurados + workflow de 5 estagios.
+A implementacao real no Winnex Maestro segue 5 fases:
 
-**Passo 2 -- Registro da Equipe:** Escritorio cadastra 12 advogados como RHs. Cada um preenche: especialidade, OAB, disponibilidade, custo interno.
+**Fase 1: Context Assembly.** O Facilitador (DireX/Winconnex, Level 0) carrega o contexto: workrai_id associado, historico da cronologia, dados da instancia RAI. Hash do contexto commitado na cadeia SHA3-256. Participantes sao carregados da entidade strategy_room_participants com seus niveis e papeis.
 
-**Passo 3 -- Contratacao Externa:** Para direito tributario internacional, contratam consultora autonomo (R$ 350/h) pelo Marketplace.
+**Fase 2: Analysis Round.** Cada agente especialista (RAI Level 1-2) apresenta sua analise via mensagens na sala. Profissionais humanos (Level 8-9) podem contribuir com expertise de dominio. Mensagens registradas em strategy_room_messages com agent_id, level, timestamp.
 
-**Passo 4 -- Execucao:** Cliente envia 15.000 documentos. Agentes IA fazem busca Madhava: 12.500 excluidos com bound proof. Top-500 classificados. WorkRAI human_validation criado. Sistema identifica advogado mais adequado. Advogado revisa em 4h, aprova com observacoes. Assinado Ed25519. Relatorio com audit trail completo.
+**Fase 3: Deliberation.** Facilitador identifica pontos de concordancia e divergencia. Votacao registrada, dissidencia formal registrada com justificativa. Se necessario, novo contexto pode ser solicitado (re-run da Fase 1).
 
-**Passo 5 -- Criacao de Agente:** Advogado cria novo agente via DevAI em linguagem natural. Agente publicado no marketplace privado. Outros escritorios podem adquiri-lo, gerando receita.
+**Fase 4: Decision.** Facilitador apresenta opcoes. Participantes votam. Humano RH (Level 8-9) aprova ou solicita revisao.
 
-### 6.3 Cadeia de Integridade Referencial
+**Fase 5: Commitment.** Decisao registrada na entidade strategy_room. WorkRAIs gerados para acoes. Todos os participantes assinam digitalmente. Registro na cadeia de auditoria imutavel.
 
-A instalacao de produtos do Marketplace segue cadeia FK-constraint no MariaDB:
+### 5.2 Regras de Escalacao do Facilitador
+
+O Facilitador escala para o nivel superior quando: sem consenso apos 3 rodadas, confianca abaixo de 0.7, risco regulatorio acima do threshold, dissidencia formal com justificativa, ou timeout sem manifestacao do profissional designado.
+
+---
+
+## 6. O Marketplace: Instalacao e Cadeia FK-Constraint
+
+O `marketplace_install_processor` (440 linhas) implementa o protocolo de instalacao. Quando um agente e contratado:
+
+1. Busca dados do agente na entidade agents_initial, incluindo workflow_definition
+2. Cria RAI na tabela maestro_rais (INSERT com status 'created')
+3. Cria Cronologia na tabela maestro_cronologia_rai com os estagios do workflow
+4. Cria WorkRAIs na tabela maestro_workrai para cada etapa (uma chamada por etapa/acao)
+5. Cria Strategy Room na tabela strategy_room com o workrai vinculado
+6. Atualiza cronologia com os workrai_ids criados
+
+Cadeia de integridade referencial garantida pelo MariaDB:
 
 ```
-marketplace.id -> rais.agent_profile_id
-rais.id -> cronologia_rai.rai_id
-cronologia_rai.id -> workrai.cronologia_id
-rais.id -> strategy_room.rai_id
+marketplace (agents_initial) -> maestro_rais (instance)
+  -> maestro_cronologia_rai (cronologia)
+    -> maestro_workrai (tarefas) + strategy_room (sala)
 ```
 
-Isto garante: nenhum WorkRAI sem Cronologia, nenhum Cronologia sem RAI, nenhum RAI sem Marketplace. Integridade referencial por construcao.
+Toda instalacao e atomica: se qualquer passo falha, o sistema retorna erro e nenhum registro parcial e mantido.
 
 ---
 
-## 7. A Garantia Matematica da Decisao Humana: Madhava Cascade
+## 7. A Garantia Matematica: Madhava Cascade
 
-### 7.1 Por que a Garantia Matematica e Relevante para RH
+O Madhava Cascade (Zenodo 20970487) fornece a base matematica sobre a qual os profissionais humanos tomam decisoes. Quando um profissional valida uma decisao de IA, ele precisa confiar que o agente nao perdeu informacao relevante. Em sistemas heuristicos (HNSW, IVF), essa confianca e probabilistica. No Madhava, e matematica.
 
-Quando um profissional valida uma decisao de IA, precisa confiar que o agente nao perdeu informacao relevante. Em sistemas heuristicos (HNSW, IVF), a confianca e probabilistica. O Madhava Cascade fornece prova matematica individual para cada documento excluido: deterministica, verificavel e absoluta.
+### 7.1 O Teorema da Exclusao
 
-### 7.2 O Teorema de Cauchy-Schwarz
+Para qualquer projecao ortogonal P e vetores v (documento) e q (consulta): <v,q> <= <Pv,Pq> + ||v - P^T P v|| x ||q - P^T P q||. Se este limite superior e menor que o threshold do top-10, o documento MATEMATICAMENTE NAO PODE estar entre os resultados. Nao e provavel. E impossivel.
 
-Para qualquer projecao ortogonal P e vetores v (documento) e q (consulta):
+### 7.2 Validacao Empirica
 
-O coseno entre v e q e sempre menor ou igual a: coseno_projetado + residuo_pitagorico
-
-Se este limite superior e menor que o threshold do top-10, o documento MATEMATICAMENTE NAO PODE estar entre os top-10. Nao e provavel — e impossivel.
+254M+ pares query-vetor no SIFT-1M: 0 violacoes de bound. NDCG@10 = 1.000, Recall@10 = 1.000. Build de 1M vetores em 2.57s (CPU). Deterministico (mesma query, mesmos dados, mesmo resultado). Audit trail individual por documento.
 
 ### 7.3 Per-Document Audit Trail
 
-```
-Documento #42042
-  Coseno verdadeiro:      0.2317
-  Limite Cauchy-Schwarz:  0.2595
-  Threshold (10o res.):   0.4500
-  Veredito:               0.2595 < 0.4500
-  -> PROVAVELMENTE FORA DO TOP-10
-  Certeza matematica:     TRUE
-```
-
-### 7.4 Validacao (SIFT-1M, 254M+ pares)
-
-| Metrica | Madhava | HNSW |
-|---------|:-------:|:----:|
-| Bound violations | 0 em 254M+ | Nao mensuravel |
-| Deterministico | Sim | Nao (grafo aleatorio) |
-| Audit trail | Por documento | Nenhum |
-| Build 1M vetores | 2.57s | ~40s |
+Para cada busca, o sistema produz: doc_id, true_cosine, projected_cosine, pythagorean_residual, cauchy_schwarz_bound, threshold, verdict (PROVABLY OUTSIDE TOP-10), mathematical_certainty (TRUE). Cada numero e verificavel independentemente.
 
 ---
 
 ## 8. Auditoria Criptografica e Conformidade Regulatoria
 
-### 8.1 Tres Modos de Auditoria
+O Winnex Maestro oferece 3 modos de auditoria, configurados por tenant:
 
-**Modo 1 — Hash Chain (padrao):** SHA3-256, latencia abaixo de 1ms. Cada entrada contem hash da anterior. Admissivel como registro comercial.
+**Modo 1 -- Hash Chain Append-Only (padrao):** SHA3-256, cada entrada contem hash da anterior, latencia < 1ms. Admissivel como registro comercial.
 
-**Modo 2 — Ed25519 Signed:** Assinaturas NIST. Cada entrada assinada pela chave privada do agente. Admissivel em tribunal.
+**Modo 2 -- Ed25519 Signed Chain:** Assinaturas NIST, cada entrada assinada pela chave privada do agente. Admissivel em tribunal.
 
-**Modo 3 — Blockchain:** Hashes de prova em blockchain permissionada. Custo: USD 0.01-0.50 por transacao.
+**Modo 3 -- Blockchain Smart Contract:** Hashes de prova em blockchain permissionada. Custo: USD 0.01-0.50 por transacao.
 
-### 8.2 Mapeamento Regulatorio
-
-| Regulacao | Requisito | Como Atende |
-|-----------|-----------|-------------|
-| EU AI Act Art. 13 | Transparencia | Cada exclusao com bound proof |
-| EU AI Act Art. 14 | Supervisao humana | Pipeline 4 camadas com gates humanos |
-| LGPD Art. 20 | Revisao decisoes automatizadas | RH overrideia e audita |
-| GDPR Art. 22 | Intervencao humana | RH Registry garante profissional disponivel |
-| HIPAA | Auditoria de acesso | Busca reproduzivel, logs 6 anos |
-
-### 8.3 Disclaimer
-
-A Winnex fornece ferramentas tecnicas para conformidade: garantias matematicas, audit trails e templates de auto-avaliacao. Nenhum componente constitui certificacao regulatoria. Conformidade requer avaliacao por orgao notificado ou assessoria juridica.
+Mapeamento regulatorio: EU AI Act Art. 13 (transparencia - bound proof por documento), Art. 14 (supervisao humana - pipeline 4 camadas), LGPD Art. 20 (revisao de decisoes automatizadas - RH pode overridear), GDPR Art. 22 (intervencao humana - RH Registry), HIPAA (auditoria de acesso - busca reproduzivel).
 
 ---
 
 ## 9. Reivindicacoes de Patente
 
-### Claim 1 — RH Registry: Registro Unificado de Agentes Humanos e IA
-Sistema de registro que trata profissionais humanos e agentes de IA com mesmo formalismo: perfil de competencias, certificacoes, disponibilidade, custo e reputacao. Descoberta por correspondencia multidimensional. [Secoes 2, 3]
+### Claim 1 -- Entidade maestro_rhs: Registro Estruturado de Profissionais Humanos
+Modelagem de profissionais humanos como entidade JSON-driven com campos de especialidade, nivel de experiencia, disponibilidade, rating, metricas de performance, carga de trabalho e multi-tenancy. Descoberta automatica via queries parametrizadas por especialidade e disponibilidade. [Secoes 2, 3]
 
-### Claim 2 — Pipeline de 4 Camadas com Auto-Rollback
-Validacao multi-camada (sandbox, checklist, humano, parceiro) com rollback automatico por anomalia e protecao do profissional. [Secao 4]
+### Claim 2 -- ValidationManager: Pipeline de 4 Camadas com Auto-Rollback
+Servico de validacao sequencial (sandbox, checklist, RH, parceiro) com rollback automatico por camada. Timeout de aprovacao humana com aprovacao automatica pos-timeout. Protecao do profissional contra tarefas mal-formadas. [Secao 4]
 
-### Claim 3 — Strategy Room: Colaboracao Facilitador-Mediada
-Protocolo de 5 fases com votacao, dissidencia e assinatura Ed25519. Escalacao automatica em timeout. [Secao 5]
+### Claim 3 -- AutoRollbackSystem: Monitoramento Proativo com Triggers Configuraveis
+Sistema de deteccao de anomalias em tempo real (5s de intervalo, 30s de rollback) com triggers configurados via JSON. Suporta error_rate, response_time, CPU, memoria, failed_validation e triggers customizados. Escalacao por severidade. [Secao 4.3]
 
-### Claim 4 — Marketplace de Trabalho Hibrido com 3 Regimes
-Catalogo com tres regimes (autonomo, empresa, corporativo). Cadeia FK-constrained. [Secoes 3.2, 6]
+### Claim 4 -- marketplace_install_processor: Instalacao Atomica FK-Constraint
+Protocolo de instalacao de agentes que cria atomicamente: RAI, Cronologia, WorkRAIs e Strategy Room. Cadeia de integridade referencial garantida pelo banco de dados. Rollback completo se qualquer passo falha. [Secao 6]
 
-### Claim 5 — Roteamento Inteligente de Validacao Humana
-Algoritmo de atribuicao automatica baseado em 5 criterios: especialidade, disponibilidade, custo, qualificacoes, reputacao. [Secao 3.3]
+### Claim 5 -- Strategy Room: Sala Multi-Agente Facilitador-Mediada
+Sala de colaboracao com facilitador (DireX), participantes (IA + humanos), mensagens cronologicas com agent_id e level. Processador JSON para criacao e orquestracao. Escalacao automatica por timeout. [Secao 5]
 
-### Claim 6 — Auto-Rollback com Protecao do Profissional
-Mecanismo que impede tarefas mal-formadas de chegarem ao humano, com notificacao ao superior. [Secao 4.4]
+### Claim 6 -- CronologiaOrchestrator e WorkRAIOrchestrator: Orquestracao Assincrona
+Dois orquestradores em polling loop (5s e 30s) que gerenciam o ciclo de vida de processos e tarefas. Integracao com AIIntegrationService para execucao de etapas automaticas. Notificacao de RHs para etapas humanas. [Secao 4.4]
 
 ---
 
-## 10. Conclusao: Implicacoes para Gestao de Pessoas
+## 10. Conclusao: Implicacoes para a Gestao de Pessoas na Economia Hibrida IA-Humano
 
-Este trabalho apresentou a camada de validacao humana (RH) na arquitetura Winnex Maestro. Implicacoes para gestao de pessoas:
+Este trabalho apresentou a camada de validacao humana (RH) na arquitetura Winnex Maestro, baseada no estudo do codigo fonte real (96.000+ linhas, 19 modulos, entidades JSON, servicos de orquestracao e validacao).
 
-**1. Profissional como agente de primeira classe.** Profissionais sao tratados com o mesmo formalismo, rastreabilidade e auditabilidade que agentes de IA. Nao sao excecoes — sao parte da arquitetura.
+Quatro implicacoes principais:
 
-**2. Marketplace como novo mercado de trabalho.** Profissionais oferecem expertise lado a lado com agentes de IA. Consultores, advogados e contadores constroem carreiras hibridas: validacao por hora + criacao de agentes para venda recorrente.
+**1. Profissional como agente de primeira classe.** A entidade maestro_rhs trata profissionais com o mesmo formalismo que agentes de IA: perfil estruturado, metricas de performance, descoberta automatica, auditoria completa.
 
-**3. Garantia matematica como base de confianca.** Madhava Cascade fornece provas individuais de completude. Confianca baseada em verificabilidade, nao em probabilidade.
+**2. Protecao do profissional por design.** As camadas de sandbox e checklist impedem que tarefas mal-formadas cheguem ao humano. O AutoRollbackSystem detecta anomalias em 5 segundos e executa rollback em 30 segundos.
 
-**4. Auditoria criptografica como protecao do profissional.** Cada decisao registrada com assinatura digital, contexto e justificativa. O profissional prova o que decidiu, com base em quais informacoes e por que.
+**3. Mercado de trabalho hibrido.** O Marketplace integra agentes IA e servicos humanos no mesmo ecossistema. Profissionais constroem reputacao via rating e metricas. Tres regimes de contratacao atendem diferentes vinculos trabalhistas.
 
-O mercado de trabalho hibrido IA-humano ainda nao existe. Este trabalho propoe as fundacoes para que ele emerga com eficiencia, controle, auditabilidade e dignidade para o profissional.
+**4. Garantia matematica como base da confianca.** O Madhava Cascade (0 violacoes em 254M+ pares) da ao profissional a certeza de que o agente de IA nao perdeu informacao relevante. A confianca e verificavel, nao probabilistica.
+
+O mercado de trabalho para a economia hibrida IA-humano esta emergindo. A Winnex Maestro oferece as fundacoes tecnicas para que ele se desenvolva com eficiencia, controle, auditabilidade e dignidade para o profissional humano.
 
 ---
 
 ## 11. Licenciamento
 
-Business Source License 1.1 (BSL 1.1). Permite uso nao-produtivo e estudo. Requer licenca comercial para producao ou SaaS. Change Date: 2036-01-01 (converte para GPL v2.0+).
+Business Source License 1.1 (BSL 1.1). Permite uso nao-produtivo e estudo. Requer licenca comercial para producao/SaaS. Change Date: 2036-01-01 (converte para GPL v2.0+).
 
 Consultas: pay@winnex.ai
 
@@ -386,14 +332,12 @@ Consultas: pay@winnex.ai
 1. Padilha, K. A. (2026). Winnex Madhava Cascade. Zenodo 10.5281/zenodo.20970487
 2. Padilha, K. A. (2026). Winnex RAI Architecture. Zenodo 10.5281/zenodo.21292595
 3. Padilha, K. A. (2026). Winnex Enterprise Stack. Zenodo 10.5281/zenodo.21107295
-4. Padilha, K. A. (2026). Winnex AI Audit Benchmark. Zenodo 10.5281/zenodo.21088504
-5. Padilha, K. A. (2026). Winnex AI Anatomy. Zenodo 10.5281/zenodo.19630736
-6. EU AI Act. Regulation (EU) 2024/1689.
-7. Brazil. LGPD Lei No 13.709/2018.
-8. EU. GDPR Regulation (EU) 2016/679.
-9. US. HIPAA (1996).
-10. Malkov & Yashunin. HNSW. arXiv:1603.09320.
-11. Dasgupta & Gupta. Johnson-Lindenstrauss Lemma. ICSI 2003.
+4. Padilha, K. A. (2026). Winnex AI Anatomy. Zenodo 10.5281/zenodo.19630736
+5. Padilha, K. A. (2026). Winnex AI Audit Benchmark. Zenodo 10.5281/zenodo.21088504
+6. European Union. (2024). EU AI Act. Regulation (EU) 2024/1689.
+7. Brazil. (2018). Lei Geral de Protecao de Dados (LGPD). Lei No 13.709/2018.
+8. European Union. (2016). General Data Protection Regulation (GDPR).
+9. U.S. HHS. (1996). Health Insurance Portability and Accountability Act (HIPAA).
 
 ---
 
@@ -409,4 +353,4 @@ Contact: pay@winnex.ai
 
 Winnex AI -- Trust Infrastructure for Regulated Enterprise AI.
 
-Este documento e uma especificacao pre-patente da camada de validacao humana (RH) na arquitetura Winnex Maestro. Afirmacoes matematicas verificeis nos Zenodos referenciados. Codigo sob BSL 1.1.
+Este documento e uma especificacao pre-patente da camada de validacao humana (RH) na arquitetura Winnex Maestro. Baseado no codigo fonte do Winnex Maestro (96.000+ linhas, 19 modulos). Afirmacoes matematicas verificeis nos Zenodos referenciados. Codigo sob BSL 1.1.
