@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.ipynb
+*.tar.gz
+*.h5
+*.bin
+*.egg-info/
+.DS_Store
+.claude/
+*.sock
+kaggle_push*/
+bigann_data/
+legal_benchmark_kaggle/
+geometric_llm_book/
+lampreia_explained/
